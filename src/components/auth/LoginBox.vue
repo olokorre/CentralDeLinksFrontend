@@ -15,7 +15,7 @@ async function login(): Promise<void> {
             nick: nick.value,
             password: password.value
         });
-        console.log(response.data);
+        alert(response.data.accessToken);
     } catch (e) {
         if (e instanceof AxiosError) {
             alert(e.response?.data.message);
@@ -27,20 +27,11 @@ async function login(): Promise<void> {
 </script>
 
 <template>
-    <div id="form-box">
+    <div class="form-box">
         <label for="nick">Nome de usuário</label>
         <input type="text" placeholder="joao" name="nick" id="nick" v-model="nick">
         <label for="password">Senha</label>
-        <input type="password" placeholder="**********" name="password" id="password" v-model="password">
+        <input type="password" placeholder="******" name="password" id="password" v-model="password">
         <input type="submit" value="Entrar" @click="login">
     </div>
 </template>
-
-<style>
-div#form-box {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    gap: 16px;
-}
-</style>

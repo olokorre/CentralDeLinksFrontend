@@ -8,7 +8,10 @@ import LoginBox from '@/components/auth/LoginBox.vue';
     <h3>Entre com suas credênciais</h3>
   </header>
   <LoginBox />
-  <footer>Me leve de volta... <a href="/">Agora</a>!</footer>
+  <footer>
+    <div>Ainda não está cadastro? <a href="/register">Crie uma conta!</a></div>
+    <div><a href="/">Saiba mais</a></div>
+  </footer>
 </template>
 
 <style>

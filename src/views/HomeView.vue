@@ -8,7 +8,7 @@ import HelloWorld from '@/components/HelloWorld.vue';
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Bem vindo ao Central de Links" />
+      <HelloWorld msg="Bem vindo a Central de Links" />
 
       <nav>
         <a href="/login">Iniciar seção</a>

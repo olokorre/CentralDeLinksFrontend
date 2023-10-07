@@ -90,3 +90,17 @@ button, input {
   background-color: var(--color-background-soft);
   border: var(--color-border) solid 2px;
 }
+
+div.form-box {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 16px;
+  border: var(--color-border) 2px solid;
+  padding: 16px;
+}
+
+footer {
+  position: absolute;
+  margin-top: 25%;
+}
