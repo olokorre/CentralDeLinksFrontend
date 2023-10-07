@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import http from "@/http";
+import router from "@/router";
 import { AxiosError } from "axios";
 import { ref } from "vue";
 
@@ -14,7 +15,8 @@ async function submitHandler(event: Event): Promise<void> {
             nick: nick.value,
             password: password.value
         });
-        alert(response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        router.push('/about');
     } catch (e) {
         if (e instanceof AxiosError) {
             alert(e.response?.data.message);

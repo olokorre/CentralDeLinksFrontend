@@ -9,8 +9,8 @@ import LoginBox from '@/components/auth/LoginBox.vue';
   </header>
   <LoginBox />
   <footer>
-    <div>Ainda não está cadastro? <a href="/register">Crie uma conta!</a></div>
-    <div><a href="/">Saiba mais</a></div>
+    <div>Ainda não está cadastro? <RouterLink to="/register">Crie uma conta!</RouterLink></div>
+    <div><RouterLink to="/">Saiba mais</RouterLink></div>
   </footer>
 </template>
 

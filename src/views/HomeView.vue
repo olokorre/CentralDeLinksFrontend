@@ -11,8 +11,8 @@ import HelloWorld from '@/components/HelloWorld.vue';
       <HelloWorld msg="Bem vindo a Central de Links" />
 
       <nav>
-        <a href="/login">Iniciar seção</a>
-        <a href="/register">Criar uma conta</a>
+        <RouterLink to="/login">Iniciar seção</RouterLink>
+        <RouterLink to="/register">Criar uma conta</RouterLink>
       </nav>
     </div>
   </header>

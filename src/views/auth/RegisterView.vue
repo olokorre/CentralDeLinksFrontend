@@ -9,8 +9,8 @@ import RegisterBox from "@/components/auth/RegisterBox.vue";
     </header>
     <RegisterBox />
     <footer>
-        <div>Já possui um cadastro? <a href="/login">Basta entrar!</a></div>
-        <div><a href="/">Saiba mais</a></div>
+        <div>Já possui um cadastro? <RouterLink to="/login">Basta entrar!</RouterLink></div>
+        <div><RouterLink to="/">Saiba mais</RouterLink></div>
     </footer>
 </template>
 
