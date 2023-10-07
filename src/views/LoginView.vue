@@ -1,24 +1,27 @@
+<script setup lang="ts">
+import LoginBox from '@/components/auth/LoginBox.vue';
+</script>
+
 <template>
   <header>
-    <h1>Bem vindo de volta :)</h1>
+    <h1 class="green">Bem vindo de volta :)</h1>
     <h3>Entre com suas credênciais</h3>
   </header>
-  <div class="box">
-    <label for="username">Nome de usuário</label>
-    <input id="username" name="username" type="text" placeholder="joao" />
-    <label for="password">Senha</label>
-    <input id="password" name="password" type="password" placeholder="****" />
-  </div>
+  <LoginBox />
   <footer>Me leve de volta... <a href="/">Agora</a>!</footer>
 </template>
 
 <style>
-div.box {
-  display: flex;
-}
-
 header {
   line-height: 1.5;
   max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 2.6rem;
 }
 </style>
