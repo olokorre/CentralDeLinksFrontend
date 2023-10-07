@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import Validator from '@/helper/Validator';
 import http from '@/http';
 import { AxiosError } from 'axios';
 import { ref } from 'vue';
 
 const nick = ref('');
 const password = ref('');
-async function login(): Promise<void> {
+async function submitHandler(event: Event): Promise<void> {
+    event.preventDefault();
     try {
-        const validator = new Validator();
-        validator.required(nick, 'Nome de usuário');
-        validator.required(password, 'Senha');
         const response = await http.post('/auth/login', {
             nick: nick.value,
             password: password.value
@@ -27,11 +24,13 @@ async function login(): Promise<void> {
 </script>
 
 <template>
-    <div class="form-box">
-        <label for="nick">Nome de usuário</label>
-        <input type="text" placeholder="joao" name="nick" id="nick" v-model="nick">
-        <label for="password">Senha</label>
-        <input type="password" placeholder="******" name="password" id="password" v-model="password">
-        <input type="submit" value="Entrar" @click="login">
-    </div>
+    <form @submit="submitHandler">
+        <div class="form-box">
+            <label for="nick">Nome de usuário</label>
+            <input type="text" placeholder="joao" name="nick" id="nick" v-model="nick" required>
+            <label for="password">Senha</label>
+            <input type="password" placeholder="******" name="password" id="password" v-model="password" required>
+            <input type="submit" value="Entrar">
+        </div>
+    </form>
 </template>
