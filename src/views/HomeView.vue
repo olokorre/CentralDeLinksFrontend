@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import TheWelcome from '@/components/TheWelcome.vue'
 import HelloWorld from '@/components/HelloWorld.vue';
+import UserService from '@/service/UserService';
+import http from '@/http';
+import type User from '@/domain/User';
+
+let user: User | undefined;
+const userService = new UserService(http);
+
+try {
+  user = await userService.me();
+} catch (_) { /* empty */ }
 </script>
 
 <template>
@@ -8,11 +18,15 @@ import HelloWorld from '@/components/HelloWorld.vue';
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Bem vindo a Central de Links" />
+      <HelloWorld v-if="!user">Bem vindo a Central de Links</HelloWorld>
+      <HelloWorld v-if="user">Bem vindo a Central de Links, {{ user.nick }}</HelloWorld>
 
-      <nav>
+      <nav v-if="!user">
         <RouterLink to="/login">Iniciar seção</RouterLink>
         <RouterLink to="/register">Criar uma conta</RouterLink>
+      </nav>
+      <nav v-if="user">
+        <RouterLink to="/about">Sobre</RouterLink>
       </nav>
     </div>
   </header>
