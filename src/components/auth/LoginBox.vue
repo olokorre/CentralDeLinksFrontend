@@ -3,17 +3,18 @@ import http from '@/http';
 import router from '@/router';
 import { AxiosError } from 'axios';
 import { ref } from 'vue';
+import UserService from '@/service/UserService';
 
 const nick = ref('');
 const password = ref('');
+const userService = new UserService(http);
 async function submitHandler(event: Event): Promise<void> {
     event.preventDefault();
     try {
-        const response = await http.post('/auth/login', {
+        await userService.login({
             nick: nick.value,
             password: password.value
         });
-        localStorage.setItem('accessToken', response.data.accessToken);
         router.push('/about');
     } catch (e) {
         if (e instanceof AxiosError) {

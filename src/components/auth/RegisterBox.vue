@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import http from "@/http";
 import router from "@/router";
+import UserService from "@/service/UserService";
 import { AxiosError } from "axios";
 import { ref } from "vue";
 
@@ -10,12 +11,12 @@ const coPassword = ref('');
 
 async function submitHandler(event: Event): Promise<void> {
     event.preventDefault();
+    const userService = new UserService(http);
     try {
-        const response = await http.post('/auth/register', {
+        await userService.register({
             nick: nick.value,
             password: password.value
         });
-        localStorage.setItem('accessToken', response.data.accessToken);
         router.push('/about');
     } catch (e) {
         if (e instanceof AxiosError) {

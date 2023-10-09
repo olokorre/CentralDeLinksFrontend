@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import User from '@/domain/User';
 import http from '@/http';
 import router from '@/router';
+import UserService from '@/service/UserService';
 
-let nick = '';
+let user = new User('', '', '');
+const userService = new UserService(http);
 
 try {
-  const response = await http.post('/auth/me');
-  nick = response.data?.nick;
+  user = await userService.me();
 } catch (e) {
   router.push('/login');
 }
@@ -19,7 +21,7 @@ function logout(): void {
 
 <template>
   <div class="about">
-    <h1>Bem vindo de volta {{ nick }}!</h1>
+    <h1>Bem vindo de volta {{ user.nick }}!</h1>
   </div>
   <footer>
     <span class="green" @click="logout">Logout</span>
