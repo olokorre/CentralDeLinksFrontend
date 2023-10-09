@@ -5,17 +5,24 @@ import router from '@/router';
 import LinkService from '@/service/LinkService';
 import Link from '@/domain/Link';
 import LogoutButton from '@/components/auth/LogoutButton.vue';
+import LinkView from '@/components/links/LinkView.vue';
+import { ref } from 'vue';
 
 const userService = new UserService(http);
 const linkService = new LinkService(http);
 let links: Link[];
+const componentKey = ref(0);
 
 try {
   await userService.me();
   links = await linkService.getAll();
-  console.log(links);
 } catch (_) {
-    router.push('/login');
+  router.push('/login');
+}
+
+async function reload() {
+  links = await linkService.getAll();
+  componentKey.value++;
 }
 </script>
 
@@ -24,12 +31,12 @@ try {
     <h1 class="green">Links</h1>
     <h3>Visualize seus links cadastrados</h3>
     <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/link">Cadastrar</RouterLink>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/link">Cadastrar</RouterLink>
     </nav>
   </header>
-  <div class="links">
-    <a v-for="link in links" :key="link.id" target="_blank" :href=link.url>{{ link.description }}</a>
+  <div class="links" :key="componentKey">
+    <LinkView v-for="link in links" :key="link.id" :link="link" @removed="reload"/>
   </div>
   <footer>
     <LogoutButton />

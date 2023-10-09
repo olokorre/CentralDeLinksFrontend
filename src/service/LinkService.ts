@@ -22,4 +22,10 @@ export default class LinkService {
         return links;
     }
 
+    async remove(link: Link): Promise<void> {
+        await this.http.delete('/links/delete', { data: {
+            linkId: link.id
+        }});
+    }
+
 }
