@@ -5,6 +5,7 @@ import LinkService from '@/service/LinkService';
 
 defineProps<{
     link: Link
+    index: number
 }>()
 const emit = defineEmits(['removed']);
 
@@ -18,7 +19,8 @@ async function remove(link: Link): Promise<void> {
 
 <template>
     <div>
-        <a :href=link.url target="_blank">{{ link.description }}</a>
+        <span class="index">{{ index }}. </span>
+        <a :href=link.url target="_blank" class="link description">{{ link.description }}</a>
         <a class="button" href="javascript:void(0)" @click="remove(link)">Deletar</a>
     </div>
 </template>
@@ -26,5 +28,13 @@ async function remove(link: Link): Promise<void> {
 <style>
 .button {
     float: right;
+}
+
+.link.description {
+    color: var(--color-text);
+}
+
+.index {
+    color: white;
 }
 </style>

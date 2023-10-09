@@ -36,7 +36,11 @@ async function reload() {
     </nav>
   </header>
   <div class="links" :key="componentKey">
-    <LinkView v-for="link in links" :key="link.id" :link="link" @removed="reload"/>
+    <div class="link title">
+      <span>Nome</span>
+      <span class="operation-title">Operações</span>
+    </div>
+      <LinkView v-for="(link, index) in links" :key="link.id" :link="link" :index="index+1" @removed="reload"/>
   </div>
   <footer>
     <LogoutButton />
@@ -63,5 +67,15 @@ h1 {
   gap: 16px;
   padding: 16px;
   border: var(--color-border) 2px solid;
+}
+
+.link.title {
+  font-weight: bold;
+  font-size: large;
+  color: white;
+}
+
+.operation-title {
+  float: right;
 }
 </style>
