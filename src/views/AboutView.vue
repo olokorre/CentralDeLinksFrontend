@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LogoutButton from '@/components/auth/LogoutButton.vue';
 import User from '@/domain/User';
 import http from '@/http';
 import router from '@/router';
@@ -12,11 +13,6 @@ try {
 } catch (e) {
   router.push('/login');
 }
-
-function logout(): void {
-  localStorage.removeItem('accessToken');
-  router.push('/login');
-}
 </script>
 
 <template>
@@ -24,7 +20,9 @@ function logout(): void {
     <h1>Bem vindo de volta {{ user.nick }}!</h1>
   </div>
   <footer>
-    <span class="green" @click="logout">Logout</span>
+    <RouterLink to="/">Home</RouterLink>
+    <span> | </span>
+    <LogoutButton />
   </footer>
 </template>
 

@@ -26,6 +26,7 @@ try {
         <RouterLink to="/register">Criar uma conta</RouterLink>
       </nav>
       <nav v-if="user">
+        <RouterLink to="/links">Links Salvos</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>
       </nav>
     </div>

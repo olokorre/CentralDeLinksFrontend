@@ -19,6 +19,7 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --green: hsla(160, 100%, 37%, 1);
 }
 
 /* semantic color variables for this project */
@@ -91,6 +92,11 @@ button, input {
   border: var(--color-border) solid 2px;
 }
 
+input[type=submit] {
+  color: var(--green);
+  border-color: var(--green);
+}
+
 div.form-box {
   display: flex;
   flex-direction: column;
@@ -104,3 +110,13 @@ footer {
   position: absolute;
   margin-top: 25%;
 }
+
+@media (max-width: 1024px) {
+  div.form-box {
+    width: auto;
+  }
+  nav {
+    margin-bottom: 16px;
+  }
+}
+

@@ -17,7 +17,7 @@ async function submitHandler(event: Event): Promise<void> {
             nick: nick.value,
             password: password.value
         });
-        router.push('/about');
+        router.push('/links');
     } catch (e) {
         if (e instanceof AxiosError) {
             alert(e.response?.data.message);
