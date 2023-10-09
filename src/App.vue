@@ -3,5 +3,12 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <RouterView />
+  <Suspense>
+    <template #default>
+      <RouterView />
+    </template>
+    <template #fallback>
+      <h1>Loafing...</h1>
+    </template>
+  </Suspense>
 </template>

@@ -2,21 +2,28 @@
 import http from '@/http';
 import router from '@/router';
 
-async function loadUserData(): Promise<void> {
-  console.log('pinto');
-  try {
-    const response = await http.post('/auth/me');
-    console.log(response.data);
-  } catch (e) {
-    router.push('/login');
-  }
+let nick = '';
+
+try {
+  const response = await http.post('/auth/me');
+  nick = response.data?.nick;
+} catch (e) {
+  router.push('/login');
+}
+
+function logout(): void {
+  localStorage.removeItem('accessToken');
+  router.push('/login');
 }
 </script>
 
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Bem vindo de volta {{ nick }}!</h1>
   </div>
+  <footer>
+    <span class="green" @click="logout">Logout</span>
+  </footer>
 </template>
 
 <style>
