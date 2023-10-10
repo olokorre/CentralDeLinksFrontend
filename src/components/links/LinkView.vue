@@ -13,7 +13,7 @@ const emit = defineEmits(['removed']);
 const linkService = new LinkService(http);
 const confirm = ref(false);
 const inProgress = ref(false);
-let timer: number | undefined;
+let timer: any;
 
 function startConfirm(): void {
     confirm.value = true;
