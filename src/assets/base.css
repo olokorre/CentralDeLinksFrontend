@@ -128,3 +128,10 @@ footer {
   }
 }
 
+input.error {
+  border-color: red;
+}
+
+span.error {
+  color: red;
+}
