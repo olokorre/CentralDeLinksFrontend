@@ -12,7 +12,7 @@ function redirect(): void {
     <h1 class="green">Bem vindo de volta :)</h1>
     <h3>Entre com suas credênciais</h3>
   </header>
-  <LoginBox @login-complited="redirect" />
+  <LoginBox @login-completed="redirect" />
   <footer>
     <div>Ainda não está cadastro? <RouterLink to="/register">Crie uma conta!</RouterLink></div>
     <div><RouterLink to="/">Saiba mais</RouterLink></div>

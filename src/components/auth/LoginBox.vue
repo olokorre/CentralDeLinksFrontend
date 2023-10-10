@@ -7,7 +7,7 @@ import UserService from '@/service/UserService';
 const nick = ref('');
 const password = ref('');
 const userService = new UserService(http);
-const emit = defineEmits(['login-complited']);
+const emit = defineEmits(['login-completed']);
 let inProgress = ref(false);
 
 async function submitHandler(event: Event): Promise<void> {
@@ -18,7 +18,7 @@ async function submitHandler(event: Event): Promise<void> {
             nick: nick.value,
             password: password.value
         });
-        emit('login-complited');
+        emit('login-completed');
     } catch (e) {
         inProgress.value = false;
         if (e instanceof AxiosError) {
