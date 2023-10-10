@@ -72,7 +72,6 @@ h1 {
 .link.title {
   font-weight: bold;
   font-size: large;
-  color: white;
 }
 
 .operation-title {

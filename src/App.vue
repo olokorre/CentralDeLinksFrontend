@@ -8,7 +8,7 @@ import { RouterView } from 'vue-router';
       <RouterView />
     </template>
     <template #fallback>
-      <h1>Loafing...</h1>
+      <h1>Loading</h1>
     </template>
   </Suspense>
 </template>
