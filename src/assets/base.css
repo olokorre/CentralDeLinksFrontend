@@ -97,6 +97,14 @@ input[type=submit] {
   border-color: var(--green);
 }
 
+input[disabled]  {
+  color: var(--color-text);
+  border-color: var(--color-background-mute);
+  transition:
+    color 0.5s
+    border-color 0.5s;
+}
+
 div.form-box {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import http from '@/http';
-import router from '@/router';
 import { AxiosError } from 'axios';
 import { ref } from 'vue';
 import UserService from '@/service/UserService';
@@ -8,15 +7,20 @@ import UserService from '@/service/UserService';
 const nick = ref('');
 const password = ref('');
 const userService = new UserService(http);
+const emit = defineEmits(['login-complited']);
+let inProgress = ref(false);
+
 async function submitHandler(event: Event): Promise<void> {
     event.preventDefault();
+    inProgress.value = true;
     try {
         await userService.login({
             nick: nick.value,
             password: password.value
         });
-        router.push('/links');
+        emit('login-complited');
     } catch (e) {
+        inProgress.value = false;
         if (e instanceof AxiosError) {
             alert(e.response?.data.message);
         } else if (e instanceof Error) {
@@ -30,10 +34,10 @@ async function submitHandler(event: Event): Promise<void> {
     <form @submit="submitHandler">
         <div class="form-box">
             <label for="nick">Nome de usuário</label>
-            <input type="text" placeholder="joao" name="nick" id="nick" v-model="nick" required>
+            <input type="text" placeholder="joao" name="nick" id="nick" v-model="nick" required v-bind:disabled="inProgress">
             <label for="password">Senha</label>
-            <input type="password" placeholder="******" name="password" id="password" v-model="password" required>
-            <input type="submit" value="Entrar">
+            <input type="password" placeholder="******" name="password" id="password" v-model="password" required v-bind:disabled=inProgress>
+            <input type="submit" value="Entrar" v-bind:disabled="inProgress">
         </div>
     </form>
 </template>

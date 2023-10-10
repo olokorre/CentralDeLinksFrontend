@@ -9,14 +9,17 @@ import { ref } from 'vue';
 const description = ref('');
 const url = ref('');
 const linkService = new LinkService(http);
+const inProgress = ref(false);
 
 async function submitHandler(event: Event): Promise<void> {
     event.preventDefault();
+    inProgress.value = true;
     try {
         const link = new Link(description.value, url.value);
         await linkService.create(link);
         router.push('/links');
     } catch (e) {
+        inProgress.value = false;
         if (e instanceof AxiosError) {
             alert(e.response?.data.message);
         } else if (e instanceof Error) {
@@ -32,12 +35,15 @@ async function submitHandler(event: Event): Promise<void> {
             <label for="description">Descrição</label>
             <input type="text" name="description"
                 id="description" placeholder="YouTube"
-                required v-model="description">
+                required v-model="description"
+                v-bind:disabled="inProgress">
             <label for="url">URL</label>
             <input type="url" name="url" id="url"
                 placeholder="https://youtube.com"
-                required v-model="url">
-            <input type="submit" value="Cadastrar">
+                required v-model="url"
+                v-bind:disabled="inProgress">
+            <input type="submit" value="Cadastrar"
+                v-bind:disabled="inProgress">
         </div>
     </form>
 </template>

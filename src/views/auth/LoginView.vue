@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import LoginBox from '@/components/auth/LoginBox.vue';
+import router from '@/router';
+
+function redirect(): void {
+  router.push('/links');
+}
 </script>
 
 <template>
@@ -7,7 +12,7 @@ import LoginBox from '@/components/auth/LoginBox.vue';
     <h1 class="green">Bem vindo de volta :)</h1>
     <h3>Entre com suas credênciais</h3>
   </header>
-  <LoginBox />
+  <LoginBox @login-complited="redirect" />
   <footer>
     <div>Ainda não está cadastro? <RouterLink to="/register">Crie uma conta!</RouterLink></div>
     <div><RouterLink to="/">Saiba mais</RouterLink></div>

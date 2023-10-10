@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import RegisterBox from "@/components/auth/RegisterBox.vue";
+import router from "@/router";
+
+function redirect(): void {
+  router.push('/links');
+}
 </script>
 
 <template>
@@ -7,7 +12,7 @@ import RegisterBox from "@/components/auth/RegisterBox.vue";
         <h1 class="green">Crie sua conta</h1>
         <h3>Em poucos passos, crie usa conta e comece a compartilhar suas pérolas com seus amigos</h3>
     </header>
-    <RegisterBox />
+    <RegisterBox @user-created="redirect"/>
     <footer>
         <div>Já possui um cadastro? <RouterLink to="/login">Basta entrar!</RouterLink></div>
         <div><RouterLink to="/">Saiba mais</RouterLink></div>
