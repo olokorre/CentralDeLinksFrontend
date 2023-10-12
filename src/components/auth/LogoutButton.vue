@@ -8,5 +8,5 @@ function logout(): void {
 </script>
 
 <template>
-    <a href="javascript:void(0)" @click="logout">Logout</a>
+    <a href="javascript:void(0)" @click="logout">Sair</a>
 </template>

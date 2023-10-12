@@ -20,7 +20,8 @@ async function submitHandler(event: Event): Promise<void> {
     try {
         await userService.register({
             nick: nick.value,
-            password: password.value
+            password: password.value,
+            coPassword: coPassword.value
         });
         emit('user-created');
     } catch (e) {

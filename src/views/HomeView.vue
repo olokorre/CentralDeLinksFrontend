@@ -3,7 +3,8 @@ import TheWelcome from '@/components/TheWelcome.vue'
 import HelloWorld from '@/components/HelloWorld.vue';
 import UserService from '@/service/UserService';
 import http from '@/http';
-import type User from '@/domain/User';
+import User from '@/domain/User';
+import LogoutButton from '@/components/auth/LogoutButton.vue';
 
 let user: User | undefined;
 const userService = new UserService(http);
@@ -15,7 +16,7 @@ try {
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Logo Central de Links" class="logo" src="@/assets/central-meme.jpg" height="125" />
 
     <div class="wrapper">
       <HelloWorld v-if="!user">Bem vindo a Central de Links</HelloWorld>
@@ -27,7 +28,7 @@ try {
       </nav>
       <nav v-if="user">
         <RouterLink to="/links">Links Salvos</RouterLink>
-        <RouterLink to="/about">Sobre</RouterLink>
+        <LogoutButton />
       </nav>
     </div>
   </header>
@@ -45,6 +46,7 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+  border: 2px var(--color-border) solid;
 }
 
 nav {

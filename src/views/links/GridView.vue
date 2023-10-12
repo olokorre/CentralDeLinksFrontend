@@ -35,12 +35,15 @@ async function reload() {
       <RouterLink to="/link">Cadastrar</RouterLink>
     </nav>
   </header>
-  <div class="links" :key="componentKey">
+  <div v-if="links.length" class="links" :key="componentKey">
     <div class="link title">
       <span>Nome</span>
       <span class="operation-title">Operações</span>
     </div>
       <LinkView v-for="(link, index) in links" :key="link.id" :link="link" :index="index+1" @removed="reload"/>
+  </div>
+  <div v-else class="links">
+    <span>Não há links cadastrados</span>
   </div>
   <footer>
     <LogoutButton />

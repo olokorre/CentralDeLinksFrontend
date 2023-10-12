@@ -14,6 +14,8 @@ export default class UserService {
     }
 
     async register(userData: UserData): Promise<User> {
+        if (userData.password !== userData.coPassword)
+            throw new Error("As senhas não conferem");
         const response = await this.http.post('/auth/register', userData);
         localStorage.setItem('accessToken', response.data.accessToken);
         return new User(response.data.id, response.data.nick, response.data.accessToken);
