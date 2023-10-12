@@ -37,6 +37,8 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #heading>Ajude-nos</template>
     Você pode vizualizar o projeto da API e até contribuir com código para ajudar a melhorar ainda mais nosso sistema!
     Clique <a href="https://github.com/olokorre/CentralDeLinksAPI" target="_blank" rel="noopener">aqui</a> para ir ao repositório da API
-    desse sistema.
+    desse sistema. Você também pode contribuir com esse projeto clicando 
+    <a target="_blank" rel="noopener" href="https://github.com/olokorre/CentralDeLinksFrontend">aqui</a>
+    para reportar bugs ou sugerir melhorias.
   </WelcomeItem>
 </template>
