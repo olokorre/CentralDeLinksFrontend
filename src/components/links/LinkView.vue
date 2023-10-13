@@ -33,11 +33,14 @@ async function remove(link: Link): Promise<void> {
 
 <template>
     <div>
-        <span class="index">{{ index }}. </span>
-        <a :href=link.url target="_blank" class="link description">{{ link.description }}</a>
-        <a class="button" href="javascript:void(0)" @click="startConfirm" v-if="!confirm">Deletar</a>
-        <a class="button danger" href="javascript:void(0)" @click="remove(link)" v-if="confirm && !inProgress">Confirmar</a>
-        <a class="button danger deleting" href="javascript:void(0)" v-if="inProgress">Deletando</a>
+        <span class="index space">{{ index }}. </span>
+        <a :href=link.url target="_blank" class="space link description" :title="link.description">{{ link.format() }}</a>
+        <div class="button">
+            <span class="separator">|</span>
+            <a href="javascript:void(0)" @click="startConfirm" v-if="!confirm">Deletar</a>
+            <a class="danger" href="javascript:void(0)" @click="remove(link)" v-if="confirm && !inProgress">Confirmar</a>
+            <a class="danger deleting" href="javascript:void(0)" v-if="inProgress">Deletando</a>
+        </div>
     </div>
 </template>
 
@@ -64,5 +67,11 @@ async function remove(link: Link): Promise<void> {
 
 .index {
     color: white;
+}
+
+.separator {
+    /* float: right; */
+    text-align: right;
+    margin: 0 8px;
 }
 </style>
