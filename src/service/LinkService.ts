@@ -1,4 +1,5 @@
 import Link from "@/domain/Link";
+import type User from "@/domain/User";
 import type { AxiosInstance } from "axios";
 
 export default class LinkService {
@@ -26,6 +27,18 @@ export default class LinkService {
         await this.http.delete('/links/delete', { data: {
             linkId: link.id
         }});
+    }
+
+    async find(linkId: string): Promise<Link> {
+        const response = await this.http.get(`/links/get/${linkId}`);
+        return new Link(response.data.description, response.data.url, response.data.id);
+    }
+
+    async share(user: User, link: Link): Promise<void> {
+        await this.http.post('/links/share', {
+            linkId: link.id,
+            userIdToShareLink: user.id
+        });
     }
 
 }

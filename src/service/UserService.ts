@@ -26,4 +26,9 @@ export default class UserService {
         return new User(response.data.id, response.data.nick, response.data.accessToken);
     }
 
+    async search(nick: string): Promise<User[]> {
+        const response = await this.http.post('/user/search', { nick });
+        return response.data.map((user: any) => new User(user.id, user.nick));
+    }
+
 }

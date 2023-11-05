@@ -6,6 +6,7 @@ import RegisterView from '../views/auth/RegisterView.vue';
 import AboutViewVue from '../views/AboutView.vue';
 import LinkGridView from '../views/links/GridView.vue';
 import LinkFormView from '../views/links/FormView.vue';
+import LinkShareView from '../views/links/ShareView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/link',
       name: 'formLinks',
       component: LinkFormView
+    },
+    {
+      path: '/link/:id',
+      name: 'shareLink',
+      component: LinkShareView
     },
     {
       path: '/:notFound',

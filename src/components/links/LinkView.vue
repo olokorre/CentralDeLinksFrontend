@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type Link from '@/domain/Link';
 import http from '@/http';
+import router from '@/router';
 import LinkService from '@/service/LinkService';
 import { ref } from 'vue';
 
@@ -29,6 +30,10 @@ async function remove(link: Link): Promise<void> {
     await linkService.remove(link);
     emit('removed');
 }
+
+async function share(link: Link) {
+    router.push(`/link/${link.id}`);
+}
 </script>
 
 <template>
@@ -36,6 +41,8 @@ async function remove(link: Link): Promise<void> {
         <span class="index space">{{ index }}. </span>
         <a :href=link.url target="_blank" class="space link description" :title="link.description">{{ link.format() }}</a>
         <div class="button">
+            <span class="separator">|</span>
+            <a href="javascript:void(0)" @click="share(link)">Compartilhar</a>
             <span class="separator">|</span>
             <a href="javascript:void(0)" @click="startConfirm" v-if="!confirm">Deletar</a>
             <a class="danger" href="javascript:void(0)" @click="remove(link)" v-if="confirm && !inProgress">Confirmar</a>
@@ -47,6 +54,7 @@ async function remove(link: Link): Promise<void> {
 <style>
 .button {
     float: right;
+    text-align: right;
 }
 
 .danger {
@@ -65,13 +73,7 @@ async function remove(link: Link): Promise<void> {
     color: var(--color-text);
 }
 
-.index {
-    color: white;
-}
-
 .separator {
-    /* float: right; */
-    text-align: right;
     margin: 0 8px;
 }
 </style>
