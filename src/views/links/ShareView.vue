@@ -8,7 +8,7 @@ import LinkService from '@/service/LinkService';
 import SelectUser from '@/components/user/SelectUser.vue';
 
 const nick = ref('');
-let searchTimer: number | undefined;
+let searchTimer: any;
 const userService = new UserService(http);
 const linkService = new LinkService(http);
 const linkId = Array.isArray(router.currentRoute.value.params.id) ? router.currentRoute.value.params.id[0] : router.currentRoute.value.params.id;
