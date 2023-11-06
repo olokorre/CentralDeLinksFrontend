@@ -32,8 +32,8 @@ function goBack(): void {
 
 <template>
     <header>
-        <h1 class="green">Compartilhe um link</h1>
-        <h3>Busque um usuário para compartilhar o seu link {{ link.description }}</h3>
+        <h1 class="green">Compartilhar um link</h1>
+        <h3>Selecione o felizardo que receberá {{ link.description }}</h3>
     </header>
     <main>
         <h3>Selecione um usuário da lista</h3>
@@ -46,6 +46,9 @@ function goBack(): void {
                 @shared="goBack()"></SelectUser>
         </div>
     </main>
+    <footer>
+        <RouterLink to="/links">Voltar</RouterLink>
+    </footer>
 </template>
 
 <style>
