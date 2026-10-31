@@ -117,13 +117,18 @@ h1 {
   border: var(--color-border) 2px solid;
 }
 
+.links > div {
+  display: flex;
+  align-items: baseline;
+}
+
 .link.title {
   font-weight: bold;
   font-size: large;
 }
 
 .operation-title {
-  float: right;
+  margin-left: auto;
 }
 
 .toolbar {

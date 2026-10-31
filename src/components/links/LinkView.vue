@@ -108,7 +108,6 @@ async function share(link: Link) {
 
 <style>
 .button {
-    float: right;
     text-align: right;
 }
 
