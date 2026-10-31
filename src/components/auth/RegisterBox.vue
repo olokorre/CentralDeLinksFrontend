@@ -28,7 +28,7 @@ async function submitHandler(event: Event): Promise<void> {
         inProgress.value = false;
         error.value = true;
         if (e instanceof AxiosError) {
-            message.value = e.response?.data.message;
+            message.value = e.response?.data.error ?? 'Falha ao criar a conta. Tente novamente.';
         } else if (e instanceof Error) {
             message.value = e.message;
         }
@@ -42,16 +42,16 @@ async function submitHandler(event: Event): Promise<void> {
             <label for="nick">Nome de usuário</label>
             <input type="text" name="nick" id="nick"
                 placeholder="joao" v-model="nick" required
-                min="3" v-bind:disabled="inProgress" v-bind:class="(error) ? 'error' : ''">
+                minlength="3" v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <label for="password">Senha</label>
             <input type="password" name="password" id="password"
                 placeholder="******" v-model="password" required
-                min="6" v-bind:disabled="inProgress" v-bind:class="(error) ? 'error' : ''">
+                minlength="6" v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <label for="co-password">Confirme a Senha</label>
             <input type="password" name="co-password"
                 id="co-password" placeholder="******"
-                v-model="coPassword" required min="6"
-                v-bind:disabled="inProgress" v-bind:class="(error) ? 'error' : ''">
+                v-model="coPassword" required minlength="6"
+                v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <span class="error" v-if="error">{{ message }}</span>
             <input type="submit" value="Criar" v-bind:disabled="inProgress">
         </div>

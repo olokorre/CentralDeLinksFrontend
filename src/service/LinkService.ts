@@ -15,8 +15,11 @@ export default class LinkService {
         return new Link(response.data.description, response.data.url, response.data.id);
     }
 
-    async getAll(): Promise<Link[]> {
-        const response = await this.http.get('/links/get');
+    async getAll(page?: number, limit?: number): Promise<Link[]> {
+        const params: { page?: number, limit?: number } = {};
+        if (page !== undefined) params.page = page;
+        if (limit !== undefined) params.limit = limit;
+        const response = await this.http.get('/links/get', { params });
         const links = [];
         for (const link of response.data.links)
             links.push(new Link(link.description, link.url, link.id));
@@ -32,6 +35,13 @@ export default class LinkService {
     async find(linkId: string): Promise<Link> {
         const response = await this.http.get(`/links/get/${linkId}`);
         return new Link(response.data.description, response.data.url, response.data.id);
+    }
+
+    async changeDescription(linkId: string, description: string): Promise<void> {
+        await this.http.put('/links/change-description', {
+            linkId,
+            description
+        });
     }
 
     async share(user: User, link: Link): Promise<void> {

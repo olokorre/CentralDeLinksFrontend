@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import TheWelcome from '@/components/TheWelcome.vue'
-import HelloWorld from '@/components/HelloWorld.vue';
-import UserService from '@/service/UserService';
+import type User from '@/domain/User';
 import http from '@/http';
-import User from '@/domain/User';
+import UserService from '@/service/UserService';
 import LogoutButton from '@/components/auth/LogoutButton.vue';
+import HelloWorld from '@/components/HelloWorld.vue';
+import TheWelcome from '@/components/TheWelcome.vue';
+import { ref } from 'vue';
 
-let user: User | undefined;
+const user = ref<User>();
 const userService = new UserService(http);
 
-try {
-  user = await userService.me();
-} catch (_) { /* empty */ }
+userService.me().then(found => user.value = found).catch(() => { /* 401 handled by http interceptor */ });
 </script>
 
 <template>
@@ -23,7 +22,7 @@ try {
       <HelloWorld v-if="user">Bem vindo a Central de Links, {{ user.nick }}</HelloWorld>
 
       <nav v-if="!user">
-        <RouterLink to="/login">Iniciar seção</RouterLink>
+        <RouterLink to="/login">Iniciar sessão</RouterLink>
         <RouterLink to="/register">Criar uma conta</RouterLink>
       </nav>
       <nav v-if="user">

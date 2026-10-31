@@ -1,12 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/auth/LoginView.vue'
-import PageNotFound from '../views/erros/404View.vue'
-import RegisterView from '../views/auth/RegisterView.vue';
-import AboutViewVue from '../views/AboutView.vue';
-import LinkGridView from '../views/links/GridView.vue';
-import LinkFormView from '../views/links/FormView.vue';
-import LinkShareView from '../views/links/ShareView.vue';
+import { useAuthStore } from '@/stores/auth'
+
+const PageNotFound = () => import('../views/erros/404View.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,43 +9,56 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: () => import('../views/auth/LoginView.vue')
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegisterView
+      component: () => import('../views/auth/RegisterView.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutViewVue
+      component: () => import('../views/AboutView.vue')
     },
     {
       path: '/links',
       name: 'gridLinks',
-      component: LinkGridView
+      component: () => import('../views/links/GridView.vue')
     },
     {
       path: '/link',
       name: 'formLinks',
-      component: LinkFormView
+      component: () => import('../views/links/FormView.vue')
     },
     {
       path: '/link/:id',
       name: 'shareLink',
-      component: LinkShareView
+      component: () => import('../views/links/ShareView.vue')
     },
     {
       path: '/:notFound',
       component: PageNotFound
     }
   ]
+})
+
+const protectedRoutes = ['gridLinks', 'formLinks', 'shareLink', 'about'];
+const guestRoutes = ['login', 'Register'];
+
+router.beforeEach((to) => {
+  const auth = useAuthStore();
+  if (protectedRoutes.includes(String(to.name)) && !auth.token) {
+    return { name: 'login' };
+  }
+  if (guestRoutes.includes(String(to.name)) && auth.token) {
+    return { name: 'gridLinks' };
+  }
 })
 
 export default router

@@ -4,8 +4,10 @@ import { mount } from '@vue/test-utils'
 import HelloWorld from '../HelloWorld.vue'
 
 describe('HelloWorld', () => {
-  it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
-    expect(wrapper.text()).toContain('Hello Vitest')
+  it('renders the slot content', () => {
+    const wrapper = mount(HelloWorld, {
+      slots: { default: 'Bem vindo a Central de Links' }
+    })
+    expect(wrapper.text()).toContain('Bem vindo a Central de Links')
   })
 })

@@ -1,23 +1,20 @@
 <script setup lang="ts">
 import LogoutButton from '@/components/auth/LogoutButton.vue';
-import User from '@/domain/User';
 import http from '@/http';
-import router from '@/router';
 import UserService from '@/service/UserService';
+import { ref } from 'vue';
 
-let user = new User('', '', '');
 const userService = new UserService(http);
+const nick = ref('');
 
-try {
-  user = await userService.me();
-} catch (e) {
-  router.push('/login');
-}
+userService.me()
+    .then(user => nick.value = user.nick)
+    .catch(() => nick.value = '');
 </script>
 
 <template>
   <div class="about">
-    <h1>Bem vindo de volta {{ user.nick }}!</h1>
+    <h1>Bem vindo de volta {{ nick }}!</h1>
   </div>
   <footer>
     <RouterLink to="/">Home</RouterLink>

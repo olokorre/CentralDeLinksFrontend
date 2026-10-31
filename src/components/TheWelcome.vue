@@ -14,8 +14,8 @@ import SupportIcon from './icons/IconSupport.vue'
     Central de links foi pensado para ser <span class="green">simples</span> e <span class="green">prático</span>
     de ser usado.
     Basta apenas se cadastrar e começar a salvar. Consultar seu conteúdo
-    também é bastante simples! Com alguns clicks, você pode <span class="green">visualizar</span>,
-    <span class="green">editar</span>, <span class="green">compartilhar</span> ou <span class="green">excluir</span> 
+    também é bastante simples! Com alguns clicks, você pode <span class="green">adicionar</span>,
+    <span class="green">visualizar</span>, <span class="green">compartilhar</span> ou <span class="green">excluir</span> 
     qualquer item que tenha salvo.
   </WelcomeItem>
 
@@ -24,10 +24,10 @@ import SupportIcon from './icons/IconSupport.vue'
       <CommunityIcon />
     </template>
     <template #heading>Compartilhável</template>
-    Você já deve ter com uma forma rápida e simples de guardar e compartilhar um
+    Você já deve ter tido uma forma rápida e simples de guardar e compartilhar um
     <span class="green">link</span> qualquer com um amigo... Bom, ela agora existe!
-    Pela Central de Links você pode simplesmente copiar o link propriamente dito,
-    <span class="green">encurta-lo</span>, ou até adicinar uma mensagem de <span class="green">redirecionamento</span>.
+    Pela Central de Links você pode enviar qualquer link salvo
+    diretamente para outro usuário da plataforma, em poucos clicks.
   </WelcomeItem>
 
   <WelcomeItem>

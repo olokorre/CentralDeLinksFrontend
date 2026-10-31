@@ -1,5 +1,5 @@
 const configuration = {
-    baseUrl: 'http://192.168.0.103:5001'
+    baseUrl: import.meta.env.VITE_API_URL ?? 'https://api.centraldelinks.xyz'
 }
 
 export default configuration;

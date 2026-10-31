@@ -26,7 +26,7 @@ async function submitHandler(event: Event): Promise<void> {
         inProgress.value = false;
         error.value = true;
         if (e instanceof AxiosError) {
-            message.value = e.response?.data.message;
+            message.value = e.response?.data.error ?? 'Falha ao entrar. Tente novamente.';
         } else if (e instanceof Error) {
             message.value = e.message;
         }

@@ -1,29 +1,64 @@
 <script setup lang="ts">
-import UserService from '@/service/UserService';
 import http from '@/http';
-import router from '@/router';
 import LinkService from '@/service/LinkService';
 import Link from '@/domain/Link';
 import LogoutButton from '@/components/auth/LogoutButton.vue';
 import LinkView from '@/components/links/LinkView.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const userService = new UserService(http);
 const linkService = new LinkService(http);
-let links: Link[];
-const componentKey = ref(0);
+const links = ref<Link[]>([]);
+const search = ref('');
+const page = ref(1);
+const limit = ref(10);
+const inProgress = ref(false);
+const error = ref('');
 
-try {
-  await userService.me();
-  links = await linkService.getAll();
-} catch (_) {
-  router.push('/login');
+const filteredLinks = computed(() => {
+  const term = search.value.trim().toLowerCase();
+  if (!term) return links.value;
+  return links.value.filter(link => link.description.toLowerCase().includes(term));
+});
+
+async function loadLinks(): Promise<void> {
+  inProgress.value = true;
+  error.value = '';
+  try {
+    links.value = await linkService.getAll(page.value, limit.value);
+  } catch (e) {
+    error.value = 'Não foi possível carregar os links. Tente novamente.';
+  } finally {
+    inProgress.value = false;
+  }
 }
 
-async function reload() {
-  links = await linkService.getAll();
-  componentKey.value++;
+function reload(): void {
+  loadLinks();
 }
+
+function previousPage(): void {
+  if (page.value > 1) {
+    page.value--;
+    reload();
+  }
+}
+
+function nextPage(): void {
+  if (links.value.length === limit.value) {
+    page.value++;
+    reload();
+  }
+}
+
+function isFirstPage(): boolean {
+  return page.value === 1;
+}
+
+function isLastPage(): boolean {
+  return links.value.length < limit.value;
+}
+
+loadLinks();
 </script>
 
 <template>
@@ -35,15 +70,25 @@ async function reload() {
       <RouterLink to="/link">Cadastrar</RouterLink>
     </nav>
   </header>
-  <div v-if="links.length" class="links" :key="componentKey">
+  <div class="toolbar">
+    <label for="search">Buscar por descrição: </label>
+    <input type="text" id="search" v-model="search" placeholder="youtube" autocomplete="off">
+  </div>
+  <span class="error" v-if="error">{{ error }}</span>
+  <div v-if="filteredLinks.length" class="links">
     <div class="link title">
       <span>Nome</span>
       <span class="operation-title">Operações</span>
     </div>
-      <LinkView v-for="(link, index) in links" :key="link.id" :link="link" :index="index+1" @removed="reload"/>
+    <LinkView v-for="(link, index) in filteredLinks" :key="link.id" :link="link" :index="index+1" @removed="reload" @updated="reload"/>
   </div>
   <div v-else class="links">
-    <span>Não há links cadastrados</span>
+    <span>{{ inProgress ? 'Carregando...' : (search ? 'Nenhum link encontrado para a busca' : 'Não há links cadastrados') }}</span>
+  </div>
+  <div class="pagination">
+    <a href="javascript:void(0)" @click="previousPage" v-if="!isFirstPage()">Anterior</a>
+    <span>Página {{ page }}</span>
+    <a href="javascript:void(0)" @click="nextPage" v-if="!isLastPage()">Próxima</a>
   </div>
   <footer>
     <LogoutButton />
@@ -79,5 +124,20 @@ h1 {
 
 .operation-title {
   float: right;
+}
+
+.toolbar {
+  margin-bottom: 16px;
+}
+
+.pagination {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.error {
+  color: red;
 }
 </style>
