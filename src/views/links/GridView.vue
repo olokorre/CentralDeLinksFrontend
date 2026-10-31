@@ -62,6 +62,7 @@ loadLinks();
 </script>
 
 <template>
+  <section class="grid-view">
   <header>
     <h1 class="green">Links</h1>
     <h3>Visualize seus links cadastrados</h3>
@@ -90,9 +91,10 @@ loadLinks();
     <span>Página {{ page }}</span>
     <a href="javascript:void(0)" @click="nextPage" v-if="!isLastPage()">Próxima</a>
   </div>
-  <footer>
+  <div class="logout-area">
     <LogoutButton />
-  </footer>
+  </div>
+  </section>
 </template>
 
 <style>
@@ -144,5 +146,19 @@ h1 {
 
 .error {
   color: red;
+}
+
+.logout-area {
+  margin-top: 16px;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+}
+
+nav a + a {
+  border-left: 1px solid var(--color-border);
+  padding-left: 12px;
 }
 </style>

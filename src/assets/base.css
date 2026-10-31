@@ -115,8 +115,7 @@ div.form-box {
 }
 
 footer {
-  position: absolute;
-  margin-top: 25%;
+  margin-top: 16px;
 }
 
 @media (max-width: 1024px) {
