@@ -2,6 +2,10 @@ import Link from "@/domain/Link";
 import type User from "@/domain/User";
 import type { AxiosInstance } from "axios";
 
+export interface LinkWithVisibility extends Link {
+    isPublic: boolean;
+}
+
 export default class LinkService {
 
     constructor(readonly http: AxiosInstance) {
@@ -15,14 +19,14 @@ export default class LinkService {
         return new Link(response.data.description, response.data.url, response.data.id);
     }
 
-    async getAll(page?: number, limit?: number): Promise<Link[]> {
+    async getAll(page?: number, limit?: number): Promise<LinkWithVisibility[]> {
         const params: { page?: number, limit?: number } = {};
         if (page !== undefined) params.page = page;
         if (limit !== undefined) params.limit = limit;
         const response = await this.http.get('/links/get', { params });
-        const links = [];
+        const links: LinkWithVisibility[] = [];
         for (const link of response.data.links)
-            links.push(new Link(link.description, link.url, link.id));
+            links.push(Object.assign(new Link(link.description, link.url, link.id), { isPublic: link.isPublic }));
         return links;
     }
 
@@ -41,6 +45,13 @@ export default class LinkService {
         await this.http.put('/links/change-description', {
             linkId,
             description
+        });
+    }
+
+    async changeVisibility(linkId: string, isPublic: boolean): Promise<void> {
+        await this.http.put('/links/change-visibility', {
+            linkId,
+            isPublic
         });
     }
 

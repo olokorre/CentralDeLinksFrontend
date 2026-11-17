@@ -32,6 +32,11 @@ const router = createRouter({
       component: () => import('../views/links/GridView.vue')
     },
     {
+      path: '/feed',
+      name: 'feed',
+      component: () => import('../views/FeedView.vue')
+    },
+    {
       path: '/link',
       name: 'formLinks',
       component: () => import('../views/links/FormView.vue')
@@ -42,13 +47,18 @@ const router = createRouter({
       component: () => import('../views/links/ShareView.vue')
     },
     {
+      path: '/u/:nick',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue')
+    },
+    {
       path: '/:notFound',
       component: PageNotFound
     }
   ]
 })
 
-const protectedRoutes = ['gridLinks', 'formLinks', 'shareLink', 'about'];
+const protectedRoutes = ['gridLinks', 'feed', 'formLinks', 'shareLink', 'about'];
 const guestRoutes = ['login', 'Register'];
 
 router.beforeEach((to) => {
