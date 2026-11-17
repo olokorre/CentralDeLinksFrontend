@@ -51,4 +51,4 @@ jobs:
           printf '%s' "$SSH_KEY" > ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
           scp -o IdentitiesOnly=yes /tmp/front-dist.tar.gz "$SSH_USER@$SSH_HOST:/tmp/"
-          ssh -o IdentitiesOnly=yes "$SSH_USER@$SSH_HOST" 'bash ~/deploy/central-de-links/ci/deploy-front.sh'
+          ssh -o IdentitiesOnly=yes "$SSH_USER@$SSH_HOST" 'sh ~/deploy/central-de-links/ci/deploy-front.sh'
