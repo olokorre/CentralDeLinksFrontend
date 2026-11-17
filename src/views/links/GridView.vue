@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import http from '@/http';
 import LinkService from '@/service/LinkService';
-import Link from '@/domain/Link';
+import type { LinkWithVisibility } from '@/service/LinkService';
 import LogoutButton from '@/components/auth/LogoutButton.vue';
 import LinkView from '@/components/links/LinkView.vue';
 import { computed, ref } from 'vue';
 
 const linkService = new LinkService(http);
-const links = ref<Link[]>([]);
+const links = ref<LinkWithVisibility[]>([]);
 const search = ref('');
 const page = ref(1);
 const limit = ref(10);
 const inProgress = ref(false);
 const error = ref('');
+const toggling = ref('');
+const visibilityError = ref('');
 
 const filteredLinks = computed(() => {
   const term = search.value.trim().toLowerCase();
@@ -34,6 +36,21 @@ async function loadLinks(): Promise<void> {
 
 function reload(): void {
   loadLinks();
+}
+
+async function toggleVisibility(link: LinkWithVisibility): Promise<void> {
+  if (toggling.value || !link.id) return;
+  toggling.value = link.id;
+  visibilityError.value = '';
+  link.isPublic = !link.isPublic;
+  try {
+    await linkService.changeVisibility(link.id, link.isPublic);
+  } catch (e) {
+    visibilityError.value = 'Não foi possível alterar a visibilidade do link. Tente novamente.';
+    await loadLinks();
+  } finally {
+    toggling.value = '';
+  }
 }
 
 function previousPage(): void {
@@ -68,6 +85,7 @@ loadLinks();
     <h3>Visualize seus links cadastrados</h3>
     <nav>
       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/feed">Feed</RouterLink>
       <RouterLink to="/link">Cadastrar</RouterLink>
     </nav>
   </header>
@@ -76,12 +94,19 @@ loadLinks();
     <input type="text" id="search" v-model="search" placeholder="youtube" autocomplete="off">
   </div>
   <span class="error" v-if="error">{{ error }}</span>
+  <span class="visibility-error" v-if="visibilityError">{{ visibilityError }}</span>
   <div v-if="filteredLinks.length" class="links">
     <div class="link title">
       <span>Nome</span>
       <span class="operation-title">Operações</span>
     </div>
-    <LinkView v-for="(link, index) in filteredLinks" :key="link.id" :link="link" :index="index+1" @removed="reload" @updated="reload"/>
+    <div class="link-row" v-for="(link, index) in filteredLinks" :key="link.id">
+      <LinkView :link="link" :index="index+1" @removed="reload" @updated="reload"/>
+      <label class="visibility-toggle" :class="{ disabled: toggling === link.id }">
+        <input type="checkbox" :checked="link.isPublic" :disabled="toggling === link.id" @change="toggleVisibility(link)">
+        Público
+      </label>
+    </div>
   </div>
   <div v-else class="links">
     <span>{{ inProgress ? 'Carregando...' : (search ? 'Nenhum link encontrado para a busca' : 'Não há links cadastrados') }}</span>
@@ -131,6 +156,36 @@ h1 {
 
 .operation-title {
   margin-left: auto;
+}
+
+.link-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.link-row > div {
+  display: flex;
+  align-items: baseline;
+}
+
+.visibility-toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.visibility-toggle.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.visibility-error {
+  color: red;
+  display: block;
+  margin-bottom: 8px;
 }
 
 .toolbar {

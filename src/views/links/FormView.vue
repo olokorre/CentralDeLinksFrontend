@@ -46,6 +46,7 @@ async function submitHandler(): Promise<void> {
     </form>
     <footer>
         <RouterLink to="/links">Links salvos</RouterLink>
+        <RouterLink to="/feed">Feed</RouterLink>
     </footer>
 </template>
 

@@ -8,6 +8,7 @@ import { ref } from 'vue';
 const props = defineProps<{
     link: Link
     index: number
+    public?: boolean
 }>()
 const emit = defineEmits(['removed', 'updated']);
 
@@ -83,7 +84,7 @@ async function share(link: Link) {
     <div>
         <span class="index space">{{ index }}. </span>
         <a :href=link.url target="_blank" class="space link description" :title="link.description">{{ link.format() }}</a>
-        <div class="button">
+        <div class="button" v-if="!public">
             <span class="separator">|</span>
             <a href="javascript:void(0)" @click="share(link)">Compartilhar</a>
             <span class="separator">|</span>

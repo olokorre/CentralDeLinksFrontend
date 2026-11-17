@@ -27,6 +27,7 @@ userService.me().then(found => user.value = found).catch(() => { /* 401 handled 
       </nav>
       <nav v-if="user">
         <RouterLink to="/links">Links Salvos</RouterLink>
+        <RouterLink to="/feed">Feed</RouterLink>
         <LogoutButton />
       </nav>
     </div>
