@@ -2,7 +2,7 @@
 import type User from '@/domain/User';
 import http from '@/http';
 import UserService from '@/service/UserService';
-import LogoutButton from '@/components/auth/LogoutButton.vue';
+import AppNav from '@/components/AppNav.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 import TheWelcome from '@/components/TheWelcome.vue';
 import { ref } from 'vue';
@@ -25,15 +25,7 @@ if (authStore.token) {
       <HelloWorld v-if="!user">Bem vindo a Central de Links</HelloWorld>
       <HelloWorld v-if="user">Bem vindo a Central de Links, {{ user.nick }}</HelloWorld>
 
-      <nav v-if="!user">
-        <RouterLink to="/login">Iniciar sessão</RouterLink>
-        <RouterLink to="/register">Criar uma conta</RouterLink>
-      </nav>
-      <nav v-if="user">
-        <RouterLink to="/links">Links Salvos</RouterLink>
-        <RouterLink to="/feed">Feed</RouterLink>
-        <LogoutButton />
-      </nav>
+      <AppNav />
     </div>
   </header>
   <main>

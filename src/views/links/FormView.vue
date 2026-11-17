@@ -4,6 +4,7 @@ import LinkService from '@/service/LinkService';
 import Link from '@/domain/Link';
 import router from '@/router';
 import { ref } from 'vue';
+import AppNav from '@/components/AppNav.vue';
 
 const description = ref('');
 const url = ref('');
@@ -44,10 +45,7 @@ async function submitHandler(): Promise<void> {
                 v-bind:disabled="inProgress">
         </div>
     </form>
-    <footer>
-        <RouterLink to="/links">Links salvos</RouterLink>
-        <RouterLink to="/feed">Feed</RouterLink>
-    </footer>
+    <AppNav />
 </template>
 
 <style>

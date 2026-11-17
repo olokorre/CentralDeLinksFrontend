@@ -47,6 +47,11 @@ const router = createRouter({
       component: () => import('../views/links/ShareView.vue')
     },
     {
+      path: '/search',
+      name: 'userSearch',
+      component: () => import('../views/SearchView.vue')
+    },
+    {
       path: '/u/:nick',
       name: 'profile',
       component: () => import('../views/ProfileView.vue')

@@ -4,6 +4,7 @@ import FeedService from '@/service/FeedService';
 import Link from '@/domain/Link';
 import LogoutButton from '@/components/auth/LogoutButton.vue';
 import { ref } from 'vue';
+import AppNav from '@/components/AppNav.vue';
 
 const feedService = new FeedService(http);
 const links = ref<Link[]>([]);
@@ -54,10 +55,7 @@ loadFeed();
   <header>
     <h1 class="green">Feed</h1>
     <h3>Links públicos de quem você segue</h3>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/links">Meus links</RouterLink>
-    </nav>
+    <AppNav />
   </header>
   <span class="error" v-if="error">{{ error }}</span>
   <div v-if="links.length" class="links">

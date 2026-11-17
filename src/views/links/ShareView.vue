@@ -7,6 +7,7 @@ import type User from '@/domain/User';
 import LinkService from '@/service/LinkService';
 import type Link from '@/domain/Link';
 import SelectUser from '@/components/user/SelectUser.vue';
+import AppNav from '@/components/AppNav.vue';
 
 const nick = ref('');
 let searchTimer: any;
@@ -72,6 +73,7 @@ watchEffect(() => {
     <footer>
         <RouterLink to="/links">Voltar</RouterLink>
     </footer>
+    <AppNav />
 </template>
 
 <style>

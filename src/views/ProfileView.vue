@@ -7,6 +7,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
+import AppNav from '@/components/AppNav.vue';
 
 const route = useRoute();
 const userService = new UserService(http);
@@ -89,6 +90,7 @@ loadProfile();
 
 <template>
   <section class="profile-view">
+    <AppNav />
     <header>
       <h1 class="green">{{ nick || (inProgress ? 'Carregando...' : '') }}</h1>
       <div v-if="isOwner" class="profile-bio-edit">

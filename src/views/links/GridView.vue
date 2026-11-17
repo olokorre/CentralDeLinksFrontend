@@ -2,7 +2,7 @@
 import http from '@/http';
 import LinkService from '@/service/LinkService';
 import type { LinkWithVisibility } from '@/service/LinkService';
-import LogoutButton from '@/components/auth/LogoutButton.vue';
+import AppNav from '@/components/AppNav.vue';
 import LinkView from '@/components/links/LinkView.vue';
 import { computed, ref } from 'vue';
 
@@ -83,11 +83,7 @@ loadLinks();
   <header>
     <h1 class="green">Links</h1>
     <h3>Visualize seus links cadastrados</h3>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/feed">Feed</RouterLink>
-      <RouterLink to="/link">Cadastrar</RouterLink>
-    </nav>
+    <AppNav />
   </header>
   <div class="toolbar">
     <label for="search">Buscar por descrição: </label>
@@ -115,9 +111,6 @@ loadLinks();
     <a href="javascript:void(0)" @click="previousPage" v-if="!isFirstPage()">Anterior</a>
     <span>Página {{ page }}</span>
     <a href="javascript:void(0)" @click="nextPage" v-if="!isLastPage()">Próxima</a>
-  </div>
-  <div class="logout-area">
-    <LogoutButton />
   </div>
   </section>
 </template>

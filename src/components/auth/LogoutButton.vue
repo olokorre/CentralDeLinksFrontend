@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 function logout(): void {
-  localStorage.removeItem('accessToken');
+  useAuthStore().clearToken();
   router.push('/login');
 }
 </script>
