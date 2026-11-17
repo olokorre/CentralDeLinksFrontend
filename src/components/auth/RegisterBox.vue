@@ -44,12 +44,12 @@ async function submitHandler(event: Event): Promise<void> {
                 placeholder="joao" v-model="nick" required
                 minlength="3" v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <label for="password">Senha</label>
-            <input type="password" name="password" id="password"
+            <input type="password" name="password" id="password" autocomplete="new-password"
                 placeholder="******" v-model="password" required
                 minlength="6" v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <label for="co-password">Confirme a Senha</label>
             <input type="password" name="co-password"
-                id="co-password" placeholder="******"
+                id="co-password" autocomplete="new-password" placeholder="******"
                 v-model="coPassword" required minlength="6"
                 v-bind:disabled="inProgress" v-bind:class="{ error: error }">
             <span class="error" v-if="error">{{ message }}</span>

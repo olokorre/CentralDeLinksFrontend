@@ -6,11 +6,15 @@ import LogoutButton from '@/components/auth/LogoutButton.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 import TheWelcome from '@/components/TheWelcome.vue';
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 
 const user = ref<User>();
 const userService = new UserService(http);
+const authStore = useAuthStore();
 
-userService.me().then(found => user.value = found).catch(() => { /* 401 handled by http interceptor */ });
+if (authStore.token) {
+  userService.me().then(found => user.value = found).catch(() => { /* 401 handled by http interceptor */ });
+}
 </script>
 
 <template>

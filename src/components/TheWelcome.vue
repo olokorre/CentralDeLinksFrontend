@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import WelcomeItem from './WelcomeItem.vue'
+import { useAuthStore } from '@/stores/auth'
 import PeincilIcon from './icons/IconPencil.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -13,10 +15,17 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #heading>Simples</template>
     Central de links foi pensado para ser <span class="green">simples</span> e <span class="green">prático</span>
     de ser usado.
-    Basta apenas se cadastrar e começar a salvar. Consultar seu conteúdo
-    também é bastante simples! Com alguns clicks, você pode <span class="green">adicionar</span>,
-    <span class="green">visualizar</span>, <span class="green">compartilhar</span> ou <span class="green">excluir</span> 
-    qualquer item que tenha salvo.
+    <template v-if="!authStore.token">
+      Basta apenas se cadastrar e começar a salvar. Consultar seu conteúdo
+      também é bastante simples! Com alguns clicks, você pode <span class="green">adicionar</span>,
+      <span class="green">visualizar</span>, <span class="green">compartilhar</span> ou <span class="green">excluir</span>
+      qualquer item que tenha salvo.
+    </template>
+    <template v-else>
+      Seus links salvos ficam na aba <span class="green">Links Salvos</span> — adicione, visualize,
+      compartilhe ou exclua com poucos clicks. Você também acompanha o que as pessoas que você
+      segue publicaram na aba <span class="green">Feed</span>.
+    </template>
   </WelcomeItem>
 
   <WelcomeItem>

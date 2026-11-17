@@ -104,7 +104,7 @@ loadProfile();
       </div>
       <p class="profile-bio" v-else-if="bio">{{ bio }}</p>
       <p class="profile-follow-counts">
-        <span>{{ followers }} seguidores</span> · <span>{{ following }} seguindo</span>
+        <span>{{ followers }} {{ followers === 1 ? "seguidor" : "seguidores" }}</span> · <span>{{ following }} seguindo</span>
         <button
           v-if="!isOwner && authStore.token"
           class="profile-follow-button"

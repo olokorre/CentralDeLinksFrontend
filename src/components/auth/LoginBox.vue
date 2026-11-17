@@ -43,7 +43,7 @@ async function submitHandler(event: Event): Promise<void> {
                 v-bind:disabled="inProgress" v-bind:class="(error) ? 'error' : ''">
                 <label for="password">Senha</label>
             <input type="password" placeholder="******"
-                name="password" id="password" v-model="password"
+                name="password" id="password" autocomplete="current-password" v-model="password"
                 required v-bind:disabled=inProgress v-bind:class="(error) ? 'error' : ''">
             <span class="error" v-if="error">{{ message }}</span>
             <input type="submit" value="Entrar"
